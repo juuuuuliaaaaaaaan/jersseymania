@@ -18,9 +18,16 @@ export default function Admin({ onLogout }) {
   const [categoryFilter, setCategoryFilter] = useState('all');
   const [sortBy, setSortBy] = useState('id');
   const [formKids, setFormKids] = useState(false); // flag para indicar producto de niños
+const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setProducts(productService.getAll());
+    const loadProducts = async () => {
+      setLoading(true);
+      const data = await productService.getAllProducts();
+      setProducts(data);
+      setLoading(false);
+    };
+    loadProducts();
   }, []);
 
   const refresh = () => setProducts(productService.getAll());
@@ -233,3 +240,4 @@ export default function Admin({ onLogout }) {
     </div>
   );
 }
+
