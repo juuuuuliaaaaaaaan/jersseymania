@@ -176,6 +176,20 @@ function ProductDetail({ product, onClose, currentUser }) {
     return () => window.removeEventListener('keydown', onKey);
   }, []);
 
+  // Botón principal: cambia texto y acción según disponibilidad de tallas
+  const handleMainAction = (e) => {
+    e && e.preventDefault();
+    if (visibleSizes && visibleSizes.length > 0) {
+      // Comprar directo por WhatsApp
+      window.open(whatsappLink, '_blank');
+      if (typeof onClose === 'function') onClose();
+    } else {
+      // Encargar (sin tallas disponibles)
+      setOrderSize(fallbackSizes[0] || '');
+      setShowOrderForm(true);
+    }
+  };
+
   return (
     <div className="modal-overlay">
       <div className="modal-content">
@@ -245,13 +259,13 @@ function ProductDetail({ product, onClose, currentUser }) {
             </>
           )}
         </div>
-        {/* Botón único: Encargar (siempre visible) */}
+        {/* Botón principal: Comprar o Encargar */}
         <button
           type="button"
-          className="whatsapp-btn"
-          onClick={handleEncargar}
+          className={`whatsapp-btn${(visibleSizes && visibleSizes.length > 0) ? ' buy-btn' : ''}`}
+          onClick={handleMainAction}
         >
-          Encargar
+          {(visibleSizes && visibleSizes.length > 0) ? 'Comprar por WhatsApp' : 'Encargar'}
         </button>
 
         {/* Modal de confirmación: Encargar (producto en stock) */}
