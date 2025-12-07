@@ -18,19 +18,24 @@ export default function Admin({ onLogout }) {
   const [categoryFilter, setCategoryFilter] = useState('all');
   const [sortBy, setSortBy] = useState('id');
   const [formKids, setFormKids] = useState(false); // flag para indicar producto de niños
-const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
+
+  // Cargar productos solo desde Supabase
+  const loadProducts = async () => {
+    setLoading(true);
+    const data = await productService.getAllProducts();
+    setProducts(data);
+    setLoading(false);
+  };
 
   useEffect(() => {
-    const loadProducts = async () => {
-      setLoading(true);
-      const data = await productService.getAllProducts();
-      setProducts(data);
-      setLoading(false);
-    };
     loadProducts();
   }, []);
 
-  const refresh = () => setProducts(productService.getAll());
+  // Refrescar productos desde Supabase
+  const refresh = async () => {
+    await loadProducts();
+  };
 
   const handleChange = (field) => (e) => {
     setForm(prev => ({...prev, [field]: e.target.value}));
@@ -80,13 +85,13 @@ const [loading, setLoading] = useState(true);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const handleDelete = (p) => {
+  const handleDelete = async (p) => {
     if (!window.confirm(`Eliminar "${p.name}" ? Esta acción no se puede deshacer.`)) return;
-    productService.remove(p.id);
-    refresh();
+    await productService.deleteProduct(p.id);
+    await refresh();
   };
 
-  const handleSave = (e) => {
+  const handleSave = async (e) => {
     e && e.preventDefault();
     const payload = {
       name: form.name,
@@ -96,15 +101,14 @@ const [loading, setLoading] = useState(true);
       images: Array.isArray(form.images) ? form.images.map(s=>String(s).trim()).filter(Boolean).slice(0,4) : [],
       discountPercent: form.discountPercent ? Number(form.discountPercent) : 0,
       discountExpires: form.discountExpires || null,
-      // solo el flag kids (sin subcategory)
       kids: !!formKids
     };
     if (editing) {
-      productService.update(editing, payload);
+      await productService.updateProduct({ id: editing, ...payload });
     } else {
-      productService.create(payload);
+      await productService.createProduct(payload);
     }
-    refresh();
+    await refresh();
     startNew();
   };
 
@@ -121,6 +125,8 @@ const [loading, setLoading] = useState(true);
     else list.sort((a,b)=> Number(a.id) - Number(b.id));
     return list;
   }, [products, categoryFilter, query, sortBy]);
+
+  if (loading) return <div>Cargando productos...</div>;
 
   return (
     <div className="admin-panel">
@@ -229,7 +235,7 @@ const [loading, setLoading] = useState(true);
             <div className="form-actions">
               <button type="submit" className="btn btn-primary">{editing ? 'Guardar cambios' : 'Crear producto'}</button>
               <button type="button" className="btn btn-ghost" onClick={startNew}>Limpiar</button>
-              <button type="button" className="btn btn-outline" onClick={() => { setProducts(productService.getAll()); }}>Refrescar</button>
+              <button type="button" className="btn btn-outline" onClick={refresh}>Refrescar</button>
             </div>
             <div style={{marginTop:8, fontSize:12, color:'#666'}}>
               Tip: haz click en la miniatura o nombre para editar rápidamente.
@@ -240,4 +246,3 @@ const [loading, setLoading] = useState(true);
     </div>
   );
 }
-
