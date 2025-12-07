@@ -49,7 +49,7 @@ function Sidebar({ selected, onSelect, onSecretAdmin, onRequireLogin }) {
   };
 
   return (
-    <aside className="sidebar">
+    <aside className="sidebar" style={{ right: 0, left: 'auto', position: 'fixed', top: 0, height: '100vh', zIndex: 100 }}>
       {/* Header compacto: logo + nombre + menú */}
       <div className="sidebar-header-compact" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
