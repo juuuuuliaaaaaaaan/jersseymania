@@ -64,6 +64,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  position: relative;
 }
 
 /* Header compacto para sidebar */
@@ -189,8 +190,12 @@ body {
   transform: translateY(-2px);
 }
 
-/* Footer con iconos */
+/* Footer con iconos: pegado al fondo del sidebar */
 .sidebar-footer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
   display: flex;
   gap: 1rem;
   justify-content: center;
@@ -198,7 +203,7 @@ body {
   width: 100%;
   padding-top: 1.5rem;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
-  margin-top: auto;
+  background: #1a2238;
 }
 
 .footer-icon {
