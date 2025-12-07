@@ -50,8 +50,16 @@ function Sidebar({ selected, onSelect, onSecretAdmin, onRequireLogin }) {
 
   return (
     <aside className="sidebar">
-      {/* Header compacto: logo + nombre */}
-      <div className="sidebar-header-compact" style={{ position: 'relative', display: 'flex', alignItems: 'center', width: '100%', marginBottom: '1.5rem', textAlign: 'center' }}>
+      {/* Header compacto: logo + nombre + menú extremo derecho */}
+      <div className="sidebar-header-compact" style={{
+        position: 'relative',
+        display: 'flex',
+        alignItems: 'center',
+        width: '100%',
+        marginBottom: '1.5rem',
+        justifyContent: 'space-between',
+        textAlign: 'center'
+      }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
           <img
             src={process.env.PUBLIC_URL + '/images/logo.jpg'}
