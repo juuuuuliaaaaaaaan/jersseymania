@@ -51,7 +51,8 @@ body {
 .app-layout {
   display: flex;
   flex-direction: row;
-  min-width: 0; /* nuevo: evitar overflow horizontal */
+  min-width: 0;
+  padding-right: 220px; /* espacio para el sidebar derecho */
 }
 
 .sidebar {
@@ -60,10 +61,16 @@ body {
   color: #fff;
   padding: 2.5rem 1.5rem;
   min-height: 100vh;
-  box-shadow: 2px 0 16px rgba(26,34,56,0.08);
+  box-shadow: -2px 0 16px rgba(26,34,56,0.08); /* sombra a la izquierda */
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  position: fixed;
+  right: 0;
+  left: auto;
+  top: 0;
+  height: 100vh;
+  z-index: 100;
 }
 
 /* Header compacto para sidebar */
