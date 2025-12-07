@@ -5,6 +5,7 @@ import { productService } from '../services/productService';
 function Home({ selected, currentUser }) {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
 
   const categoryTitles = {
     futbol: 'Football',
@@ -15,8 +16,15 @@ function Home({ selected, currentUser }) {
   useEffect(() => {
     const loadProducts = async () => {
       setLoading(true);
-      const data = await productService.getProductsByCategory(selected);
-      setProducts(data);
+      setError('');
+      try {
+        const data = await productService.getProductsByCategory(selected);
+        console.log('Productos recibidos:', data);
+        setProducts(data);
+      } catch (err) {
+        setError('Error al cargar productos');
+        setProducts([]);
+      }
       setLoading(false);
     };
     loadProducts();
@@ -26,6 +34,8 @@ function Home({ selected, currentUser }) {
     <div className="main-content">
       {loading ? (
         <p>Cargando productos...</p>
+      ) : error ? (
+        <p style={{color:'red'}}>{error}</p>
       ) : (
         <Section 
           id={selected} 
