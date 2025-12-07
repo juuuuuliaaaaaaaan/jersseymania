@@ -68,11 +68,12 @@ body {
 
 /* Header compacto para sidebar */
 .sidebar-header-compact {
+  position: relative;
   display: flex;
-  flex-direction: column;
   align-items: center;
   width: 100%;
   margin-bottom: 1.5rem;
+  justify-content: space-between;
   text-align: center;
 }
 
@@ -650,19 +651,14 @@ img { max-width: 100%; height: auto; display: block; }
 
 /* botón que abre/cierra categorías */
 .nav-toggle {
-  width: 100%;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
   background: transparent;
-  border: 2px solid rgba(255,154,60,0.15);
-  color: #ff9a3c;
-  padding: 0.6rem;
-  border-radius: 8px;
-  font-weight: 700;
-  cursor: pointer;
-  margin-bottom: 0.6rem;
-  text-align: center;
-}
-.nav-toggle:focus {
-  outline: 3px solid rgba(255,154,60,0.18);
+  border: none;
+  padding: 0;
+  width: auto;
 }
 
 /* grid de categorías: oculto por defecto, se muestra con .show -> FORZAR 2x2 */
