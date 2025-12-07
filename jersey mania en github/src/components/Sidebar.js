@@ -136,28 +136,6 @@ function Sidebar({ selected, onSelect, onSecretAdmin, onRequireLogin }) {
         </div>
       </div>
 
-      {/* Iconos de redes + enlace de código */}
-      <div className="sidebar-footer">
-        <a href="https://wa.me/5355792217" target="_blank" rel="noopener noreferrer" title="WhatsApp">
-          <img src={process.env.PUBLIC_URL + '/whatsapp.svg'} alt="WhatsApp" className="footer-icon" />
-        </a>
-        <a href="https://www.facebook.com/profile.php?id=61578607190965" target="_blank" rel="noopener noreferrer" title="Facebook">
-          <img src={process.env.PUBLIC_URL + '/facebook.svg'} alt="Facebook" className="footer-icon" />
-        </a>
-        <a href="https://www.instagram.com/jerseymania777?igsh=MW51NmFocTBmYmg5cA==" target="_blank" rel="noopener noreferrer" title="Instagram">
-          <img src={process.env.PUBLIC_URL + '/instagram.svg'} alt="Instagram" className="footer-icon" />
-        </a>
-        {currentUser && (
-          <button
-            className="footer-icon-btn"
-            onClick={() => setShowShareModal(true)}
-            title="Compartir código"
-          >
-            <img src={process.env.PUBLIC_URL + '/enlace.svg'} alt="Compartir" className="footer-icon" />
-          </button>
-        )}
-      </div>
-
       {showShareModal && (
         <ShareModal onClose={() => setShowShareModal(false)} currentUser={currentUser} />
       )}
