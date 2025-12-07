@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import defaultProducts from '../data/products';
 import { userService } from '../services/userService';
 
 function formatRemaining(ms) {
@@ -13,15 +12,8 @@ function formatRemaining(ms) {
 }
 
 function ProductDetail({ product, onClose, currentUser }) {
-  // obtener imágenes fiables: si product.images tiene < 4 elementos, intentar fallback por id
-  const sourceImages = (() => {
-    const imgs = Array.isArray(product.images) ? product.images : [];
-    // permitir hasta 4 imágenes; si faltan, intentar fallback y truncar a 4
-    const fallback = defaultProducts.find(p => p.id === product.id);
-    const fb = (fallback && Array.isArray(fallback.images)) ? fallback.images : [];
-    const combined = imgs.length ? imgs.slice(0,4) : fb.slice(0,4);
-    return combined;
-  })();
+  // obtener imágenes solo del producto recibido
+  const sourceImages = Array.isArray(product.images) ? product.images.slice(0, 4) : [];
 
   // seleccionar la primera imagen como principal (si hay >0)
   const [selectedImage, setSelectedImage] = useState(sourceImages[0] || '');
