@@ -1184,3 +1184,29 @@ img { max-width: 100%; height: auto; display: block; }
   box-shadow: 0 12px 30px rgba(16, 185, 129, 0.16);
   outline: none;
 }
+
+/* Iconos de redes sociales al final de la página principal */
+.main-footer-social {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.2rem;
+  padding: 2rem 0 0.5rem 0;
+  background: #1a2238;
+  border-top: 2px solid #fff;
+  margin-top: 2.5rem;
+}
+
+.main-footer-social .footer-icon {
+  width: 32px;
+  height: 32px;
+  filter: invert(1) brightness(1.2) drop-shadow(0 2px 4px rgba(26,34,56,0.12));
+  transition: transform 0.2s, filter 0.2s;
+  cursor: pointer;
+}
+
+.main-footer-social .footer-icon:hover {
+  transform: scale(1.15);
+  filter: invert(1) brightness(1.4) drop-shadow(0 2px 8px rgba(255,111,60,0.24));
+}
