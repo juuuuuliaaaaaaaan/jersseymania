@@ -70,7 +70,12 @@ function Sidebar({ selected, onSelect, onSecretAdmin, onRequireLogin }) {
           aria-expanded={showCategories}
           onClick={() => setShowCategories(prev => !prev)}
         >
-          Categorías
+          {/* Cambia el texto por el SVG */}
+          <img
+            src={process.env.PUBLIC_URL + '/menu.svg'}
+            alt="Menú"
+            style={{ width: 28, height: 28, verticalAlign: 'middle' }}
+          />
         </button>
 
         <div className={`categories-drawer ${showCategories ? 'open' : ''}`} role="dialog" aria-hidden={!showCategories}>
