@@ -21,14 +21,13 @@ function App() {
     if (isLoggedIn) {
       setIsAdmin(true);
     }
-    
-    // Verificar si hay usuario registrado en este dispositivo
+    // Solo mostrar registro si no existe la marca "registeredOnce"
     const registeredUser = userService.getRegisteredUserOnDevice();
-    if (registeredUser) {
+    const alreadyRegistered = localStorage.getItem('registeredOnce') === 'true';
+    if (registeredUser || alreadyRegistered) {
       setCurrentUser(registeredUser);
       setShowWelcome(false);
     } else {
-      // Si no hay usuario registrado en el dispositivo, mostrar welcome
       setShowWelcome(true);
     }
   }, []);
@@ -66,6 +65,8 @@ function App() {
   const handleStart = (user) => {
     setCurrentUser(user);
     setShowWelcome(false);
+    // Marca que ya se registró una vez en este dispositivo
+    localStorage.setItem('registeredOnce', 'true');
   };
 
   // Función que se pasará al Sidebar para trigger secreto por clicks en logo
