@@ -49,15 +49,15 @@ function Sidebar({ selected, onSelect, onSecretAdmin, onRequireLogin }) {
   };
 
   return (
-    <aside className="sidebar" style={{ right: 0, left: 'auto', position: 'fixed', top: 0, height: '100vh', zIndex: 100 }}>
-      {/* Header compacto: logo + nombre + menú */}
-      <div className="sidebar-header-compact" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
+    <aside className="sidebar">
+      {/* Header compacto: logo + nombre */}
+      <div className="sidebar-header-compact" style={{ position: 'relative', display: 'flex', alignItems: 'center', width: '100%', marginBottom: '1.5rem', textAlign: 'center' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
           <img
             src={process.env.PUBLIC_URL + '/images/logo.jpg'}
             alt="Logo"
             className="sidebar-logo-small"
-            onClick={handleLogoClick} // click secreto
+            onClick={handleLogoClick}
           />
           <h1 className="sidebar-title-small" style={{ margin: 0 }}>Jerssey Mania</h1>
         </div>
@@ -66,7 +66,15 @@ function Sidebar({ selected, onSelect, onSecretAdmin, onRequireLogin }) {
           className="nav-toggle"
           aria-expanded={showCategories}
           onClick={() => setShowCategories(prev => !prev)}
-          style={{ marginLeft: 'auto', background: 'transparent', border: 'none', padding: 0 }}
+          style={{
+            position: 'absolute',
+            right: 0,
+            top: '50%',
+            transform: 'translateY(-50%)',
+            background: 'transparent',
+            border: 'none',
+            padding: 0
+          }}
         >
           <img
             src={process.env.PUBLIC_URL + '/menu.svg'}
