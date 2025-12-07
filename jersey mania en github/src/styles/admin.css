@@ -1,0 +1,217 @@
+.admin-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  background: #f8fafc;
+  flex: 1;
+}
+
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.admin-header h1 {
+  color: #1a2238;
+  margin: 0;
+}
+
+.btn-logout {
+  background: #dc3545;
+  color: #fff;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.2s;
+}
+
+.btn-logout:hover {
+  background: #c82333;
+  transform: scale(1.05);
+}
+
+.btn-nuevo {
+  background: linear-gradient(90deg, #ff6f3c 0%, #ff9a3c 100%);
+  color: #fff;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  margin-bottom: 2rem;
+  transition: all 0.2s;
+}
+
+.btn-nuevo:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(255, 111, 60, 0.3);
+}
+
+.admin-form {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(26, 34, 56, 0.1);
+  margin-bottom: 2rem;
+  border: 2px solid #ff6f3c;
+}
+
+.admin-form h2 {
+  color: #1a2238;
+  margin-bottom: 1.5rem;
+}
+
+.admin-form input,
+.admin-form select {
+  width: 100%;
+  padding: 0.8rem;
+  margin-bottom: 1rem;
+  border: 2px solid #e0e7ef;
+  border-radius: 6px;
+  font-size: 1rem;
+  box-sizing: border-box;
+  transition: border-color 0.2s;
+}
+
+.admin-form input:focus,
+.admin-form select:focus {
+  outline: none;
+  border-color: #ff6f3c;
+  box-shadow: 0 0 8px rgba(255, 111, 60, 0.2);
+}
+
+.form-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.btn-guardar,
+.btn-cancelar {
+  flex: 1;
+  padding: 0.8rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-guardar {
+  background: #ff6f3c;
+  color: #fff;
+}
+
+.btn-guardar:hover {
+  background: #ff9a3c;
+}
+
+.btn-cancelar {
+  background: #ddd;
+  color: #333;
+}
+
+.btn-cancelar:hover {
+  background: #bbb;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  box-shadow: 0 4px 12px rgba(26, 34, 56, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.admin-table thead {
+  background: #1a2238;
+  color: #fff;
+}
+
+.admin-table th,
+.admin-table td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid #e0e7ef;
+}
+
+.admin-table tbody tr:hover {
+  background: #f0f0f0;
+}
+
+.btn-editar,
+.btn-eliminar {
+  padding: 0.5rem 1rem;
+  margin-right: 0.5rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: bold;
+  transition: all 0.2s;
+}
+
+.btn-editar {
+  background: #ff6f3c;
+  color: #fff;
+}
+
+.btn-editar:hover {
+  background: #ff9a3c;
+}
+
+.btn-eliminar {
+  background: #dc3545;
+  color: #fff;
+}
+
+.btn-eliminar:hover {
+  background: #c82333;
+}
+
+/* Nueva clase para las pestañas (ambas en naranja por defecto) */
+.tab-btn {
+  background: linear-gradient(90deg, #ff6f3c 0%, #ff9a3c 100%);
+  color: #fff;
+  border: none;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  box-shadow: 0 4px 12px rgba(255, 111, 60, 0.15);
+}
+
+/* Botón seleccionado: borde negro exterior */
+.tab-btn.tab-active {
+  border: 2px solid #000;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+}
+
+/* Opcional: hover para no seleccionado */
+.tab-btn:not(.tab-active):hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(255, 111, 60, 0.18);
+}
+
+.status-select {
+  padding: 0.4rem 0.6rem;
+  border: 2px solid #e0e7ef;
+  border-radius: 6px;
+  cursor: pointer;
+  background: #fff;
+  color: #1a2238;
+}
+
+.status-select:focus {
+  outline: none;
+  border-color: #ff6f3c;
+}

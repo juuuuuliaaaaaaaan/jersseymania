@@ -1,0 +1,202 @@
+.share-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(26, 34, 56, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1050;
+}
+
+.share-modal-content {
+  background: #fff;
+  border-radius: 20px;
+  padding: 2rem;
+  max-width: 500px;
+  width: 90%;
+  box-shadow: 0 20px 60px rgba(26, 34, 56, 0.3);
+  position: relative;
+}
+
+.share-modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  color: #1a2238;
+  transition: color 0.2s;
+}
+
+.share-modal-close:hover {
+  color: #ff6f3c;
+}
+
+.share-modal-content h2 {
+  margin-top: 0;
+  color: #1a2238;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.share-label {
+  font-size: 0.95rem;
+  color: #666;
+  margin-bottom: 0.5rem;
+}
+
+.share-modal-link {
+  margin-bottom: 1.5rem;
+}
+
+.share-modal-code {
+  background: #1a2238;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 1.2rem;
+  font-size: 1.4rem;
+  font-weight: bold;
+  text-align: center;
+  letter-spacing: 2px;
+  font-family: monospace;
+  box-shadow: 0 4px 12px rgba(26, 34, 56, 0.3);
+  word-break: break-all;
+}
+
+.share-modal-url {
+  background: #f4f4f4;
+  border: 2px solid #e0e7ef;
+  border-radius: 10px;
+  padding: 1rem;
+  font-size: 0.9rem;
+  word-break: break-all;
+  color: #1a2238;
+  font-family: monospace;
+}
+
+.share-modal-actions {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.btn-share-primary {
+  flex: 1;
+  background: linear-gradient(90deg, #ff6f3c 0%, #ff9a3c 100%);
+  color: #fff;
+  border: none;
+  padding: 0.8rem;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-share-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(255, 111, 60, 0.3);
+}
+
+.btn-share-secondary {
+  width: 100%;
+  background: #f0f0f0;
+  color: #1a2238;
+  border: 2px solid #e0e7ef;
+  padding: 0.8rem;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-share-secondary:hover {
+  background: #e8e8e8;
+  border-color: #ff6f3c;
+}
+
+/* Estilos para descuentos */
+.share-modal-discounts {
+  background: #f9f9f9;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.share-modal-discounts h3 {
+  margin-top: 0;
+  color: #ff6f3c;
+  text-align: center;
+}
+
+.discount-item {
+  background: #fff;
+  border-left: 4px solid #ff6f3c;
+  padding: 1rem;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+}
+
+.discount-item strong {
+  display: block;
+  color: #1a2238;
+  margin-bottom: 0.5rem;
+}
+
+.discount-item p {
+  margin: 0;
+  color: #666;
+  font-size: 0.95rem;
+}
+
+.discount-badge {
+  background: #fff3e0;
+  color: #ff6f3c;
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+.discount-note {
+  background: #e8f5e9;
+  border-radius: 6px;
+  padding: 1rem;
+  margin-top: 1rem;
+}
+
+.discount-note p {
+  margin: 0.4rem 0;
+  color: #2e7d32;
+  font-size: 0.9rem;
+}
+
+.discount-note p:before {
+  content: '✓ ';
+  font-weight: bold;
+}
+
+/* Botón en Sidebar */
+.btn-share-section {
+  width: 100%;
+  background: linear-gradient(90deg, #ff6f3c 0%, #ff9a3c 100%);
+  color: #fff;
+  border: none;
+  padding: 0.7rem;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: all 0.2s;
+}
+
+.btn-share-section:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(255, 111, 60, 0.3);
+}
