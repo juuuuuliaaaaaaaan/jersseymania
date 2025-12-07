@@ -1,0 +1,190 @@
+.order-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(26, 34, 56, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1050;
+}
+
+.order-modal-content {
+  background: #fff;
+  border-radius: 20px;
+  padding: 2rem;
+  max-width: 500px;
+  width: 90%;
+  box-shadow: 0 20px 60px rgba(26, 34, 56, 0.3);
+  position: relative;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.order-modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  color: #1a2238;
+  transition: color 0.2s;
+}
+
+.order-modal-close:hover {
+  color: #4CAF50;
+}
+
+.order-modal-content h2 {
+  margin-top: 0;
+  color: #1a2238;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.form-group {
+  margin-bottom: 1.2rem;
+}
+
+.form-group label {
+  display: block;
+  font-weight: bold;
+  color: #1a2238;
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 0.8rem;
+  border: 2px solid #e0e7ef;
+  border-radius: 8px;
+  font-size: 1rem;
+  box-sizing: border-box;
+  transition: border-color 0.2s;
+  background: #fff;
+  color: #1a2238;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: #4CAF50;
+  box-shadow: 0 0 8px rgba(76, 175, 80, 0.2);
+}
+
+/* Estilos mejorados para upload de foto */
+.photo-upload-area {
+  margin-bottom: 1rem;
+}
+
+.photo-input-label {
+  cursor: pointer;
+}
+
+.photo-placeholder {
+  border: 2px dashed #4CAF50;
+  border-radius: 12px;
+  padding: 2rem;
+  text-align: center;
+  background: #f0fdf4;
+  transition: all 0.2s;
+}
+
+.photo-placeholder:hover {
+  background: #e8fce8;
+  border-color: #66BB6A;
+}
+
+.photo-icon {
+  font-size: 2.5rem;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.photo-placeholder p {
+  margin: 0;
+  color: #4CAF50;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.photo-preview-container {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.photo-preview {
+  width: 100%;
+  max-height: 250px;
+  border-radius: 12px;
+  object-fit: cover;
+  border: 2px solid #4CAF50;
+  display: block;
+}
+
+.btn-remove-photo {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: rgba(220, 53, 69, 0.9);
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-remove-photo:hover {
+  background: #dc3545;
+  transform: scale(1.1);
+}
+
+.btn-order-submit {
+  width: 100%;
+  background: linear-gradient(90deg, #4CAF50 0%, #66BB6A 100%);
+  color: #fff;
+  border: none;
+  padding: 1rem;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-top: 1rem;
+}
+
+.btn-order-submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(76, 175, 80, 0.3);
+}
+
+.order-success {
+  text-align: center;
+  padding: 2rem;
+  background: #e8f5e9;
+  border-radius: 12px;
+}
+
+.order-success p {
+  margin: 0.5rem 0;
+  color: #2e7d32;
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.order-success p:first-child {
+  font-size: 1.3rem;
+}
