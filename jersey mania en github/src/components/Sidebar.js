@@ -50,34 +50,35 @@ function Sidebar({ selected, onSelect, onSecretAdmin, onRequireLogin }) {
 
   return (
     <aside className="sidebar">
-      {/* Header compacto: logo + nombre */}
-      <div className="sidebar-header-compact">
-        <img
-          src={process.env.PUBLIC_URL + '/images/logo.jpg'}
-          alt="Logo"
-          className="sidebar-logo-small"
-          onClick={handleLogoClick} // click secreto
-        />
-        <h1 className="sidebar-title-small">Jerssey Mania</h1>
-        {currentUser && <p className="sidebar-username-small">👤 {currentUser.username}</p>}
-      </div>
-
-      {/* Selector de categorías + cajón */}
-      <div className="sidebar-nav">
+      {/* Header compacto: logo + nombre + menú */}
+      <div className="sidebar-header-compact" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+          <img
+            src={process.env.PUBLIC_URL + '/images/logo.jpg'}
+            alt="Logo"
+            className="sidebar-logo-small"
+            onClick={handleLogoClick} // click secreto
+          />
+          <h1 className="sidebar-title-small" style={{ margin: 0 }}>Jerssey Mania</h1>
+        </div>
         <button
           type="button"
           className="nav-toggle"
           aria-expanded={showCategories}
           onClick={() => setShowCategories(prev => !prev)}
+          style={{ marginLeft: 'auto', background: 'transparent', border: 'none', padding: 0 }}
         >
-          {/* Cambia el texto por el SVG */}
           <img
             src={process.env.PUBLIC_URL + '/menu.svg'}
             alt="Menú"
             style={{ width: 28, height: 28, verticalAlign: 'middle' }}
           />
         </button>
+      </div>
+      {currentUser && <p className="sidebar-username-small">👤 {currentUser.username}</p>}
 
+      {/* Selector de categorías + cajón */}
+      <div className="sidebar-nav">
         <div className={`categories-drawer ${showCategories ? 'open' : ''}`} role="dialog" aria-hidden={!showCategories}>
           <div className="categories-row">
             <button
