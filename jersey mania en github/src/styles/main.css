@@ -1,7 +1,7 @@
 body {
   font-family: 'Segoe UI', Arial, sans-serif;
   margin: 0;
-  background: #1a2238; /* azul oscuro en todo el fondo */
+  background: #1a2238;
   min-height: 100vh;
   color: #222;
 }
@@ -396,6 +396,8 @@ body {
   min-width: 0;
   box-shadow: 0 0 0 8px #1a2238; /* borde azul alrededor del área principal */
   border-radius: 0 0 12px 12px;
+  position: relative;
+  z-index: 1;
 }
 
 /* Prevent horizontal scroll and use border-box everywhere */
@@ -1198,17 +1200,21 @@ img { max-width: 100%; height: auto; display: block; }
   background: #1a2238;
   border-top: 2px solid #fff;
   margin-top: 2.5rem;
+  border-radius: 0 0 12px 12px;
+  position: relative;
+  z-index: 2;
 }
 
-.main-footer-social .footer-icon {
-  width: 32px;
-  height: 32px;
-  filter: invert(1) brightness(1.2) drop-shadow(0 2px 4px rgba(26,34,56,0.12));
-  transition: transform 0.2s, filter 0.2s;
-  cursor: pointer;
-}
-
-.main-footer-social .footer-icon:hover {
-  transform: scale(1.15);
-  filter: invert(1) brightness(1.4) drop-shadow(0 2px 8px rgba(255,111,60,0.24));
+/* Fondo azul debajo del footer social, hasta el final de la página */
+body::after {
+  content: "";
+  display: block;
+  width: 100vw;
+  height: 60px;
+  background: #1a2238;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  z-index: 0;
+  pointer-events: none;
 }
