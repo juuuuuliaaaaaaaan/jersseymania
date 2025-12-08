@@ -22,6 +22,7 @@ export default function Admin({ onLogout }) {
   const [loading, setLoading] = useState(true);
   const [users, setUsers] = useState([]);
   const [loadingUsers, setLoadingUsers] = useState(true);
+  const [showUsers, setShowUsers] = useState(false); // NUEVO: alternar entre productos/usuarios
 
   // Cargar productos solo desde Supabase
   const loadProducts = async () => {
@@ -145,151 +146,155 @@ export default function Admin({ onLogout }) {
   return (
     <div className="admin-panel">
       <header className="admin-header">
-        <h2>Panel de administración — Productos</h2>
+        <h2>Panel de administración</h2>
         <div className="admin-actions">
-          <button className="btn" onClick={startNew}>+ Nuevo producto</button>
+          <button className="btn" onClick={() => setShowUsers(false)}>Ver productos</button>
+          <button className="btn" onClick={() => setShowUsers(true)}>Ver usuarios</button>
           {typeof onLogout === 'function' && <button className="btn btn-ghost" onClick={onLogout}>Cerrar sesión admin</button>}
         </div>
       </header>
 
-      {/* NUEVA SECCIÓN: Usuarios */}
-      <section className="admin-users-section" style={{marginBottom: 32}}>
-        <h3>Usuarios registrados</h3>
-        {loadingUsers ? (
-          <div>Cargando usuarios...</div>
-        ) : (
-          <table className="admin-users-table" style={{width: '100%', borderCollapse: 'collapse'}}>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Usuario</th>
-                <th>Enlace</th>
-                <th>Referidos</th>
-              </tr>
-            </thead>
-            <tbody>
-              {users.map(u => (
-                <tr key={u.id}>
-                  <td>{u.id}</td>
-                  <td>{u.username}</td>
-                  <td>
-                    <a href={`${window.location.origin}/?ref=${u.referral_code}`} target="_blank" rel="noopener noreferrer">
-                      {window.location.origin}/?ref={u.referral_code}
-                    </a>
-                  </td>
-                  <td style={{textAlign: 'center'}}>{u.referrals_count || 0}</td>
+      {/* Mostrar usuarios solo si showUsers=true */}
+      {showUsers ? (
+        <section className="admin-users-section" style={{marginBottom: 32}}>
+          <h3>Usuarios registrados</h3>
+          {loadingUsers ? (
+            <div>Cargando usuarios...</div>
+          ) : (
+            <table className="admin-users-table" style={{width: '100%', borderCollapse: 'collapse'}}>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Usuario</th>
+                  <th>Enlace</th>
+                  <th>Referidos</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        )}
-      </section>
-
-      <div className="admin-grid">
-        <aside className="admin-left">
-          <div className="admin-filters">
-            <input className="input" placeholder="Buscar por nombre o id" value={query} onChange={e=>setQuery(e.target.value)} />
-            <div className="row">
-              <select className="select" value={categoryFilter} onChange={e=>setCategoryFilter(e.target.value)}>
-                {categories.map(c => <option key={c} value={c}>{c === 'all' ? 'Todas' : c}</option>)}
-              </select>
-              <select className="select" value={sortBy} onChange={e=>setSortBy(e.target.value)}>
-                <option value="id">Orden: id</option>
-                <option value="name">Orden: nombre</option>
-                <option value="price">Orden: precio</option>
-              </select>
-            </div>
-          </div>
-
-          <div className="product-list-admin">
-            {filtered.length === 0 ? (
-              <div className="empty">No hay productos</div>
-            ) : filtered.map(p => (
-              <div key={p.id} className="product-row-admin">
-                <div className="product-thumb" onClick={() => handleEdit(p)} title="Editar">
-                  {p.images && p.images[0] ? (
-                    <img src={p.images[0]} alt={p.name} onError={(e)=>{ e.currentTarget.style.display='none'; }} />
-                  ) : (
-                    <div className="thumb-empty">No image</div>
-                  )}
-                </div>
-                <div className="product-info" onClick={() => handleEdit(p)}>
-                  <div className="product-name">{p.name}</div>
-                  <div className="product-meta">{p.category} · {p.sizes ? p.sizes.join(', ') : '—'}</div>
-                </div>
-                <div className="product-actions">
-                  <div className="product-price">${p.price}</div>
-                  <button className="btn btn-sm" onClick={() => handleEdit(p)}>Editar</button>
-                  <button className="btn btn-danger btn-sm" onClick={() => handleDelete(p)}>Eliminar</button>
-                </div>
-              </div>
-            ))}
-          </div>
-        </aside>
-
-        <main className="admin-right">
-          <form className="admin-form" onSubmit={handleSave}>
-            <h3>{editing ? `Editar #${editing}` : 'Crear producto'}</h3>
-            <div className="form-grid">
-              <label>
-                Nombre
-                <input className="input" required value={form.name} onChange={handleChange('name')} />
-              </label>
-              <label>
-                Categoría
-                <select className="select" value={form.category} onChange={handleChange('category')}>
-                  <option value="futbol">futbol</option>
-                  <option value="basket">basket</option>
-                  <option value="beisbol">beisbol</option>
+              </thead>
+              <tbody>
+                {users.map(u => (
+                  <tr key={u.id}>
+                    <td>{u.id}</td>
+                    <td>{u.username}</td>
+                    <td>
+                      <a href={`${window.location.origin}/?ref=${u.referral_code}`} target="_blank" rel="noopener noreferrer">
+                        {window.location.origin}/?ref={u.referral_code}
+                      </a>
+                    </td>
+                    <td style={{textAlign: 'center'}}>{u.referrals_count || 0}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
+        </section>
+      ) : (
+        // Mostrar productos solo si showUsers=false
+        <div className="admin-grid">
+          <aside className="admin-left">
+            <div className="admin-filters">
+              <input className="input" placeholder="Buscar por nombre o id" value={query} onChange={e=>setQuery(e.target.value)} />
+              <div className="row">
+                <select className="select" value={categoryFilter} onChange={e=>setCategoryFilter(e.target.value)}>
+                  {categories.map(c => <option key={c} value={c}>{c === 'all' ? 'Todas' : c}</option>)}
                 </select>
-              </label>
-              <label>
-                Precio
-                <input className="input" value={form.price} onChange={handleChange('price')} />
-              </label>
-              <label>
-                Tallas (coma separados)
-                <input className="input" value={form.sizes} onChange={handleChange('sizes')} />
-              </label>
-              <label style={{gridColumn: '1 / -1'}}>
-                Imágenes (1–4 URLs). Deja vacío si no aplica.
-                <div style={{display:'grid', gridTemplateColumns:'repeat(2,1fr)', gap:8, marginTop:8}}>
-                  {Array.from({length:4}).map((_,i) => (
-                    <input key={i} className="input" placeholder={`Imagen ${i+1} URL`} value={(form.images && form.images[i]) || ''} onChange={handleImageChange(i)} />
-                  ))}
-                </div>
-              </label>
-              <label>
-                Descuento %
-                <input className="input" value={form.discountPercent} onChange={handleChange('discountPercent')} />
-              </label>
-              <label>
-                Discount expires (ISO)
-                <input className="input" value={form.discountExpires} onChange={handleChange('discountExpires')} />
-              </label>
-              {/* Flag: Es de niños */}
-              <label style={{display:'flex', alignItems:'center', gap:8, marginTop:8}}>
-                <input
-                  type="checkbox"
-                  checked={formKids}
-                  onChange={(e) => setFormKids(e.target.checked)}
-                  id="kids-flag"
-                />
-                <span style={{fontWeight:700}}>Es de niños</span>
-              </label>
+                <select className="select" value={sortBy} onChange={e=>setSortBy(e.target.value)}>
+                  <option value="id">Orden: id</option>
+                  <option value="name">Orden: nombre</option>
+                  <option value="price">Orden: precio</option>
+                </select>
+              </div>
             </div>
 
-            <div className="form-actions">
-              <button type="submit" className="btn btn-primary">{editing ? 'Guardar cambios' : 'Crear producto'}</button>
-              <button type="button" className="btn btn-ghost" onClick={startNew}>Limpiar</button>
-              <button type="button" className="btn btn-outline" onClick={refresh}>Refrescar</button>
+            <div className="product-list-admin">
+              {filtered.length === 0 ? (
+                <div className="empty">No hay productos</div>
+              ) : filtered.map(p => (
+                <div key={p.id} className="product-row-admin">
+                  <div className="product-thumb" onClick={() => handleEdit(p)} title="Editar">
+                    {p.images && p.images[0] ? (
+                      <img src={p.images[0]} alt={p.name} onError={(e)=>{ e.currentTarget.style.display='none'; }} />
+                    ) : (
+                      <div className="thumb-empty">No image</div>
+                    )}
+                  </div>
+                  <div className="product-info" onClick={() => handleEdit(p)}>
+                    <div className="product-name">{p.name}</div>
+                    <div className="product-meta">{p.category} · {p.sizes ? p.sizes.join(', ') : '—'}</div>
+                  </div>
+                  <div className="product-actions">
+                    <div className="product-price">${p.price}</div>
+                    <button className="btn btn-sm" onClick={() => handleEdit(p)}>Editar</button>
+                    <button className="btn btn-danger btn-sm" onClick={() => handleDelete(p)}>Eliminar</button>
+                  </div>
+                </div>
+              ))}
             </div>
-            <div style={{marginTop:8, fontSize:12, color:'#666'}}>
-              Tip: haz click en la miniatura o nombre para editar rápidamente.
-            </div>
-          </form>
-        </main>
-      </div>
+          </aside>
+
+          <main className="admin-right">
+            <form className="admin-form" onSubmit={handleSave}>
+              <h3>{editing ? `Editar #${editing}` : 'Crear producto'}</h3>
+              <div className="form-grid">
+                <label>
+                  Nombre
+                  <input className="input" required value={form.name} onChange={handleChange('name')} />
+                </label>
+                <label>
+                  Categoría
+                  <select className="select" value={form.category} onChange={handleChange('category')}>
+                    <option value="futbol">futbol</option>
+                    <option value="basket">basket</option>
+                    <option value="beisbol">beisbol</option>
+                  </select>
+                </label>
+                <label>
+                  Precio
+                  <input className="input" value={form.price} onChange={handleChange('price')} />
+                </label>
+                <label>
+                  Tallas (coma separados)
+                  <input className="input" value={form.sizes} onChange={handleChange('sizes')} />
+                </label>
+                <label style={{gridColumn: '1 / -1'}}>
+                  Imágenes (1–4 URLs). Deja vacío si no aplica.
+                  <div style={{display:'grid', gridTemplateColumns:'repeat(2,1fr)', gap:8, marginTop:8}}>
+                    {Array.from({length:4}).map((_,i) => (
+                      <input key={i} className="input" placeholder={`Imagen ${i+1} URL`} value={(form.images && form.images[i]) || ''} onChange={handleImageChange(i)} />
+                    ))}
+                  </div>
+                </label>
+                <label>
+                  Descuento %
+                  <input className="input" value={form.discountPercent} onChange={handleChange('discountPercent')} />
+                </label>
+                <label>
+                  Discount expires (ISO)
+                  <input className="input" value={form.discountExpires} onChange={handleChange('discountExpires')} />
+                </label>
+                {/* Flag: Es de niños */}
+                <label style={{display:'flex', alignItems:'center', gap:8, marginTop:8}}>
+                  <input
+                    type="checkbox"
+                    checked={formKids}
+                    onChange={(e) => setFormKids(e.target.checked)}
+                    id="kids-flag"
+                  />
+                  <span style={{fontWeight:700}}>Es de niños</span>
+                </label>
+              </div>
+
+              <div className="form-actions">
+                <button type="submit" className="btn btn-primary">{editing ? 'Guardar cambios' : 'Crear producto'}</button>
+                <button type="button" className="btn btn-ghost" onClick={startNew}>Limpiar</button>
+                <button type="button" className="btn btn-outline" onClick={refresh}>Refrescar</button>
+              </div>
+              <div style={{marginTop:8, fontSize:12, color:'#666'}}>
+                Tip: haz click en la miniatura o nombre para editar rápidamente.
+              </div>
+            </form>
+          </main>
+        </div>
+      )}
     </div>
   );
 }
