@@ -1,3 +1,9 @@
+import { createClient } from '@supabase/supabase-js';
+
+const supabaseUrl = process.env.REACT_APP_SUPABASE_URL;
+const supabaseKey = process.env.REACT_APP_SUPABASE_ANON_KEY;
+const supabase = createClient(supabaseUrl, supabaseKey);
+
 const USERS_KEY = 'jm_users';
 const CURRENT_KEY = 'jm_current_user';
 
@@ -105,6 +111,29 @@ export const userService = {
     if (referrals >= 10) return 10;
     if (referrals >= 5) return 5;
     return 0;
+  },
+
+  // Obtiene todos los usuarios y la cantidad de referidos por cada uno
+  async getAllUsersWithReferrals() {
+    // Supone que tienes los campos: id, username, referral_code
+    // y que los referidos tienen un campo referred_by igual al referral_code del usuario que los refirió
+    const { data: users, error } = await supabase
+      .from('users')
+      .select('id, username, referral_code');
+
+    if (error || !users) return [];
+
+    // Para cada usuario, cuenta sus referidos
+    const { data: allUsers } = await supabase
+      .from('users')
+      .select('referred_by');
+
+    return users.map(u => ({
+      ...u,
+      referrals_count: allUsers
+        ? allUsers.filter(r => r.referred_by === u.referral_code).length
+        : 0
+    }));
   },
 
   // helpers (para debug/admin)
