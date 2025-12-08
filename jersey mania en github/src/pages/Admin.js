@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { productService } from '../services/productService';
+import { userService } from '../services/userService'; // Asegúrate de tener este servicio
 import '../styles/admin.css';
 
 export default function Admin({ onLogout }) {
@@ -19,6 +20,8 @@ export default function Admin({ onLogout }) {
   const [sortBy, setSortBy] = useState('id');
   const [formKids, setFormKids] = useState(false); // flag para indicar producto de niños
   const [loading, setLoading] = useState(true);
+  const [users, setUsers] = useState([]);
+  const [loadingUsers, setLoadingUsers] = useState(true);
 
   // Cargar productos solo desde Supabase
   const loadProducts = async () => {
@@ -126,6 +129,17 @@ export default function Admin({ onLogout }) {
     return list;
   }, [products, categoryFilter, query, sortBy]);
 
+  // Cargar usuarios desde Supabase
+  useEffect(() => {
+    const loadUsers = async () => {
+      setLoadingUsers(true);
+      const data = await userService.getAllUsersWithReferrals();
+      setUsers(data);
+      setLoadingUsers(false);
+    };
+    loadUsers();
+  }, []);
+
   if (loading) return <div>Cargando productos...</div>;
 
   return (
@@ -137,6 +151,39 @@ export default function Admin({ onLogout }) {
           {typeof onLogout === 'function' && <button className="btn btn-ghost" onClick={onLogout}>Cerrar sesión admin</button>}
         </div>
       </header>
+
+      {/* NUEVA SECCIÓN: Usuarios */}
+      <section className="admin-users-section" style={{marginBottom: 32}}>
+        <h3>Usuarios registrados</h3>
+        {loadingUsers ? (
+          <div>Cargando usuarios...</div>
+        ) : (
+          <table className="admin-users-table" style={{width: '100%', borderCollapse: 'collapse'}}>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Usuario</th>
+                <th>Enlace</th>
+                <th>Referidos</th>
+              </tr>
+            </thead>
+            <tbody>
+              {users.map(u => (
+                <tr key={u.id}>
+                  <td>{u.id}</td>
+                  <td>{u.username}</td>
+                  <td>
+                    <a href={`${window.location.origin}/?ref=${u.referral_code}`} target="_blank" rel="noopener noreferrer">
+                      {window.location.origin}/?ref={u.referral_code}
+                    </a>
+                  </td>
+                  <td style={{textAlign: 'center'}}>{u.referrals_count || 0}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
+      </section>
 
       <div className="admin-grid">
         <aside className="admin-left">
