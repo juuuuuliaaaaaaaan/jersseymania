@@ -215,3 +215,28 @@
   outline: none;
   border-color: #ff6f3c;
 }
+
+.admin-users-table {
+  width: 100%;
+  border: 1px solid #e6eef6;
+  background: #fff;
+  margin-bottom: 18px;
+}
+
+.admin-users-table th,
+.admin-users-table td {
+  padding: 8px 10px;
+  border-bottom: 1px solid #e6eef6;
+  text-align: left;
+  font-size: 15px;
+}
+
+.admin-users-table th {
+  background: #f8fafc;
+  color: #1a2238;
+  font-weight: 700;
+}
+
+.admin-users-table tr:last-child td {
+  border-bottom: none;
+}
